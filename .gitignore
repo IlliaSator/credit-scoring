@@ -4,4 +4,4 @@ __pycache__/
 .env
 data/
 notebooks/.ipynb_checkpoints/
-echo "mlruns/" >> .gitignore
+mlruns/
