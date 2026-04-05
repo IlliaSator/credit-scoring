@@ -1,6 +1,5 @@
 name: CI — Build and Test
 
-# Запускается при каждом пуше в main
 on:
   push:
     branches: [ main ]
@@ -8,28 +7,40 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      # Шаг 1 — скачиваем код
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Шаг 2 — собираем Docker образ
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Run tests
+        run: pytest tests/ -v
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Build Docker image
         run: docker build -t credit-scoring-api .
 
-      # Шаг 3 — запускаем контейнер
       - name: Run container
         run: docker run -d -p 8000:8000 --name test-api credit-scoring-api
 
-      # Шаг 4 — ждём пока API запустится
       - name: Wait for API
         run: sleep 10
 
-      # Шаг 5 — проверяем что /health отвечает
       - name: Test health endpoint
-        run: |
-          curl -f http://localhost:8000/health || exit 1
-          echo "API is healthy!"
+        run: curl -f http://localhost:8000/health || exit 1
