@@ -159,7 +159,38 @@ Docker + docker-compose
 GitHub Actions CI (сборка + тест /health)
 ```
 
----
+##  Тесты
+
+Проект покрыт 9 тестами — функциональными и на валидацию входных данных.
+
+### Запуск локально
+```bash
+pip install -r requirements-dev.txt
+pytest tests/ -v
+```
+
+### Что тестируется
+
+| Тест | Описание |
+|---|---|
+| `test_health` | API отвечает статусом ok |
+| `test_predict_low_risk` | Надёжный клиент получает LOW + Одобрить |
+| `test_predict_high_risk` | Клиент с просрочками получает HIGH + Отказать |
+| `test_predict_returns_probability_range` | Вероятность в диапазоне 0–1 |
+| `test_predict_invalid_age_too_young` | Возраст < 18 → 422 |
+| `test_predict_invalid_age_too_old` | Возраст > 100 → 422 |
+| `test_predict_negative_income` | Отрицательный доход → 422 |
+| `test_predict_missing_field` | Отсутствующее поле → 422 |
+| `test_predict_wrong_type` | Строка вместо числа → 422 |
+
+### CI Pipeline
+
+При каждом `git push` GitHub Actions автоматически:
+1. Запускает все 9 тестов
+2. Собирает Docker образ
+3. Проверяет `/health` endpoint
+
+![CI](https://img.shields.io/github/actions/workflow/status/ImpereoT/credit-scoring/ci.yml?label=CI)
 
 ##  Данные
 
