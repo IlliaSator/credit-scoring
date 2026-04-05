@@ -4,6 +4,10 @@ import numpy as np
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, field_validator
 from contextlib import asynccontextmanager
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+import os
+
 
 # ЛОГИРОВАНИЕ
 
@@ -53,6 +57,11 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan
 )
+
+
+@app.get("/")
+def frontend():
+    return FileResponse("src/frontend.html")
 
 # СХЕМА ВХОДНЫХ ДАННЫХ
 
