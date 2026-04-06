@@ -74,7 +74,7 @@ credit-scoring/
 ### Через Docker (рекомендуется)
 
 ```bash
-git clone https://github.com/ImpereoT/credit-scoring.git
+git clone https://github.com/IlliaSator/credit-scoring.git
 cd credit-scoring
 docker-compose up -d
 ```
