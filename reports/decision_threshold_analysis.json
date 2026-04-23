@@ -1,0 +1,32 @@
+[
+  {
+    "threshold": 0.1,
+    "precision": 0.2859880749574106,
+    "recall": 0.6698254364089775,
+    "false_positives": 3353,
+    "false_negatives": 662,
+    "true_positives": 1343,
+    "true_negatives": 24642,
+    "cost": 6663
+  },
+  {
+    "threshold": 0.23,
+    "precision": 0.4114893617021277,
+    "recall": 0.4822942643391521,
+    "false_positives": 1383,
+    "false_negatives": 1038,
+    "true_positives": 967,
+    "true_negatives": 26612,
+    "cost": 6573
+  },
+  {
+    "threshold": 0.4,
+    "precision": 0.5318559556786704,
+    "recall": 0.28728179551122196,
+    "false_positives": 507,
+    "false_negatives": 1429,
+    "true_positives": 576,
+    "true_negatives": 27488,
+    "cost": 7652
+  }
+]
