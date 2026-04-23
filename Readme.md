@@ -85,14 +85,27 @@ Generated artifacts:
 - `reports/calibration_curve.png`
 - `reports/threshold_analysis.csv`
 - `reports/threshold_analysis.png`
+- `reports/decision_threshold_analysis.csv`
 
 Why threshold `0.23`: the original notebook selected it because it materially improves F1 versus the default `0.50` cutoff. The reproducible threshold report compares `0.10`, `0.23`, `0.30` and `0.50` with confusion counts, precision, recall, decline rate and a simple cost framework where false negatives cost more than false positives.
 
 Calibration matters because credit risk scores are used as probabilities, not only as rankings. A poorly calibrated model can produce reasonable AUC while still overstating or understating expected default risk.
 
+## Decision Logic
+
+The service declines applications when the predicted default probability is at least `0.23`. This threshold is business-dependent: a lower threshold catches more risky borrowers but declines more good borrowers, while a higher threshold improves precision but misses more defaults.
+
+Run the focused business analysis with:
+
+```bash
+python -m src.decision_analysis --data data/cs-training.csv --output-dir reports
+```
+
+It compares thresholds `0.10`, `0.23` and `0.40` using precision, recall, false positives, false negatives and a simple cost rule: `FN = 5 * FP`.
+
 ## Explainability
 
-Credit decisions need explainability because applicants, reviewers and model owners need to understand which factors drove a risk estimate. This project includes both global and local explanations:
+Credit decisions need explainability because applicants, reviewers and model owners need to understand which factors drove a risk estimate. The project uses SHAP `TreeExplainer` for the GradientBoosting model and supports both global and local explanations:
 
 - Global explanation: which features are most influential across a validation sample.
 - Local explanation: which features pushed one applicant toward higher or lower estimated default risk.
@@ -176,6 +189,14 @@ Example response:
 
 Inference events are written locally to `logs/inference_log.jsonl` with `request_id`, timestamp, probability, risk level and decision. The log directory is intentionally git-ignored.
 
+Example `/explain` request uses the same JSON payload as `/predict`:
+
+```bash
+curl -X POST http://localhost:8000/explain \
+  -H "Content-Type: application/json" \
+  -d '{"RevolvingUtilizationOfUnsecuredLines":0.30,"age":45,"NumberOfTime30_59DaysPastDueNotWorse":0,"DebtRatio":0.35,"MonthlyIncome":5000,"NumberOfOpenCreditLinesAndLoans":8,"NumberOfTimes90DaysLate":0,"NumberRealEstateLoansOrLines":1,"NumberOfTime60_89DaysPastDueNotWorse":0,"NumberOfDependents":0}'
+```
+
 ## Demo Scenario
 
 1. Start the service:
@@ -214,6 +235,7 @@ venv\Scripts\activate
 pip install -r requirements-dev.txt
 python -m src.train --data data/cs-training.csv --output-dir models
 python -m src.evaluate --data data/cs-training.csv --output-dir reports
+python -m src.decision_analysis --data data/cs-training.csv --output-dir reports
 python -m src.segment_analysis --data data/cs-training.csv --output-dir reports
 python -m src.explain --data data/cs-training.csv --output-dir reports
 pytest -q
