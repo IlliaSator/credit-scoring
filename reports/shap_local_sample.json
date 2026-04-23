@@ -1,0 +1,139 @@
+{
+  "default_probability": 0.0082,
+  "risk_level": "LOW",
+  "decision": "\u041e\u0434\u043e\u0431\u0440\u0438\u0442\u044c",
+  "explanation_method": "feature_importance_fallback",
+  "interpretation_note": "Positive contributions push the applicant toward higher estimated default risk; negative contributions push the estimate lower. SHAP values are model explanations, not causal proof.",
+  "top_positive_risk_drivers": [
+    {
+      "feature": "MonthlyIncome",
+      "value": 10121.0,
+      "contribution": 156.87830082330422,
+      "direction": "increases_risk"
+    }
+  ],
+  "top_negative_risk_drivers": [
+    {
+      "feature": "TotalLatePayments",
+      "value": 0.0,
+      "contribution": -403.1458161594928,
+      "direction": "decreases_risk"
+    },
+    {
+      "feature": "RevolvingUtilizationOfUnsecuredLines",
+      "value": 0.029689737,
+      "contribution": -106.9965146229015,
+      "direction": "decreases_risk"
+    },
+    {
+      "feature": "NumberOfTimes90DaysLate",
+      "value": 0.0,
+      "contribution": -58.32671435187052,
+      "direction": "decreases_risk"
+    },
+    {
+      "feature": "DebtRatio",
+      "value": 0.283244418,
+      "contribution": -14.421349094843562,
+      "direction": "decreases_risk"
+    },
+    {
+      "feature": "HasAnyLatePayment",
+      "value": 0.0,
+      "contribution": -13.994952023895102,
+      "direction": "decreases_risk"
+    }
+  ],
+  "per_feature_contribution": [
+    {
+      "feature": "TotalLatePayments",
+      "value": 0.0,
+      "contribution": -403.1458161594928,
+      "direction": "decreases_risk"
+    },
+    {
+      "feature": "MonthlyIncome",
+      "value": 10121.0,
+      "contribution": 156.87830082330422,
+      "direction": "increases_risk"
+    },
+    {
+      "feature": "RevolvingUtilizationOfUnsecuredLines",
+      "value": 0.029689737,
+      "contribution": -106.9965146229015,
+      "direction": "decreases_risk"
+    },
+    {
+      "feature": "NumberOfTimes90DaysLate",
+      "value": 0.0,
+      "contribution": -58.32671435187052,
+      "direction": "decreases_risk"
+    },
+    {
+      "feature": "DebtRatio",
+      "value": 0.283244418,
+      "contribution": -14.421349094843562,
+      "direction": "decreases_risk"
+    },
+    {
+      "feature": "HasAnyLatePayment",
+      "value": 0.0,
+      "contribution": -13.994952023895102,
+      "direction": "decreases_risk"
+    },
+    {
+      "feature": "LoansPerIncome",
+      "value": 0.0006915629322268327,
+      "contribution": -13.99034478180408,
+      "direction": "decreases_risk"
+    },
+    {
+      "feature": "age",
+      "value": 57.0,
+      "contribution": -13.965135525916391,
+      "direction": "decreases_risk"
+    },
+    {
+      "feature": "NumberOfTime60-89DaysPastDueNotWorse",
+      "value": 0.0,
+      "contribution": -9.460045324010943,
+      "direction": "decreases_risk"
+    },
+    {
+      "feature": "NumberOfTime30-59DaysPastDueNotWorse",
+      "value": 0.0,
+      "contribution": -8.639604488727757,
+      "direction": "decreases_risk"
+    },
+    {
+      "feature": "NumberRealEstateLoansOrLines",
+      "value": 1.0,
+      "contribution": -8.319449010025844,
+      "direction": "decreases_risk"
+    },
+    {
+      "feature": "NumberOfOpenCreditLinesAndLoans",
+      "value": 7.0,
+      "contribution": -7.836394572076529,
+      "direction": "decreases_risk"
+    },
+    {
+      "feature": "DebtPerDependent",
+      "value": 0.283244418,
+      "contribution": -5.068337994841011,
+      "direction": "decreases_risk"
+    },
+    {
+      "feature": "NumberOfDependents",
+      "value": 0.0,
+      "contribution": -2.219407163135569,
+      "direction": "decreases_risk"
+    },
+    {
+      "feature": "IsYoung",
+      "value": 0.0,
+      "contribution": -0.052696442895024696,
+      "direction": "decreases_risk"
+    }
+  ]
+}
